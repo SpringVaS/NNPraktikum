@@ -8,6 +8,7 @@ from numpy import exp
 from numpy import divide
 from numpy import ones
 from numpy import asarray
+from numpy import sum
 
 
 class Activation:
@@ -73,7 +74,7 @@ class Activation:
     @staticmethod
     def softmaxPrime(netOutput):
         softmax_netOutput = Activation.softmax(netOutput)
-        return softmax_netOutput * (1- softmax_netOutput)
+        return softmax_netOutput * (1 - softmax_netOutput)
         
     @staticmethod
     def getActivation(str):
