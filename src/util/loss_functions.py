@@ -129,7 +129,7 @@ class CrossEntropyError(Error):
         loss = np.sum(log_likelihood) / m
         return loss
 
-    def calculateDerivativer(self, target, output):
+    def calculateDerivative(self, target, output):
         m = target.shape[0]
         grad = Activation.softmax(output)
         grad[range(m), target] -= 1
