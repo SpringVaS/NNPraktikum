@@ -66,14 +66,14 @@ class Activation:
         return ones(netOutput.size)
 
     @staticmethod
-    def softmax(netOutput):
-        # Here you have to code the softmax function
-        pass
+    def softmax(netOutput)
+        ex = exp(netOutput);
+        return ex / sum(exp);
         
     @staticmethod
     def softmaxPrime(netOutput):
-        # Here you have to code the softmax function
-        pass
+        softmax_netOutput = Activation.softmax(netOutput)
+        return softmax_netOutput * (1- softmax_netOutput)
         
     @staticmethod
     def getActivation(str):
