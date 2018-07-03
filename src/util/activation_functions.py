@@ -42,9 +42,9 @@ class Activation:
     @staticmethod
     def tanhPrime(netOutput):
         # Here you have to code the derivative of tanh function
-        ex = exp(1.0 * netOutput);
-        exn = exp(-1.0 * netOutput);
-        return 4/((ex + exn)**2)
+        ex = exp(1.0 * netOutput)
+        exn = exp(-1.0 * netOutput)
+        return 4 * 1/((ex + exn)**2)
 
     @staticmethod
     def rectified(netOutput):
