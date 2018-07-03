@@ -7,6 +7,7 @@ Loss functions.
 
 import numpy as np
 
+from activation_functions import Activation
 from abc import ABCMeta, abstractmethod, abstractproperty
 
 
@@ -106,7 +107,7 @@ class BinaryCrossEntropyError(Error):
         self.errorString = 'bce'
 
     def calculateError(self, target, output):
-        return np.sum(target*log(output) + (1-target)*log(1-output))
+        return np.sum(target*np.log(output) + (1-target)*np.log(1-output))
         
     def calculateDerivative(self, target, output):
         # BCEPrime = -target/output + (1-target)/(1-output)
@@ -122,7 +123,16 @@ class CrossEntropyError(Error):
         self.errorString = 'crossentropy'
 
     def calculateError(self, target, output):
-        pass
-        
+        m = target.shape[0]
+        p = Activation.softmax(output)
+        log_likelihood = -np.log(p[range(m), target])
+        loss = np.sum(log_likelihood) / m
+        return loss
+
     def calculateDerivativer(self, target, output):
-        pass
+        m = target.shape[0]
+        grad = Activation.softmax(output)
+        grad[range(m), target] -= 1
+        grad = grad / m
+        return grad
+
