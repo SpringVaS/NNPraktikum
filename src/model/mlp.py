@@ -47,7 +47,6 @@ class MultilayerPerceptron(Classifier):
         self.epochs = epochs
         self.outputTask = outputTask  # Either classification or regression
         self.outputActivation = outputActivation
-        self.cost = cost#TODO:what is this ment for? I think it can be dismissed
 
         self.trainingSet = train
         self.validationSet = valid
