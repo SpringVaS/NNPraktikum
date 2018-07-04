@@ -158,9 +158,26 @@ class MultilayerPerceptron(Classifier):
         verbose : boolean
             Print logging messages with validation accuracy if verbose is True.
         """
-        pass
+        for epoch in range(self.epochs):
+            for input, label in zip(self.trainingSet.input, self.trainingSet.label):
 
+                # get the optimal output vector:
+                optimalOutput = np.zeros([10])
+                optimalOutput[label] = 1
 
+                # get the *actual* output of our perceptron:
+                output = self._feed_forward(input)
+
+                # compute the new weights:
+                newWeights = np.ones(self.layers[-1].nOut)
+                errorDerivative = self.loss.calculateDerivative(optimalOutput, output)
+                nextDerivative = errorDerivative
+
+                for layer in reversed(self.layers):
+                    nextDerivative = layer.computeDerivative(nextDerivative, newWeights)
+                    newWeights = np.transpose(layer.weights[1:])
+
+                self._update_weights(self.learningRate)
 
     def classify(self, test_instance):
         # Classify an instance given the model of the classifier
