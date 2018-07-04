@@ -129,7 +129,7 @@ class MultilayerPerceptron(Classifier):
             inputLayer = np.insert(outputLayer,0,1, axis = 0)#not sure if axis needed (?)
         return outputLayer
 
-    def _compute_error(self, target):#TODO
+    def _compute_error(self, target, actual):#TODO
         """
         Compute the total error of the network (error terms from the output layer)
 
@@ -138,7 +138,10 @@ class MultilayerPerceptron(Classifier):
         ndarray :
             a numpy array (1,nOut) containing the output of the layer
         """
-        pass
+        errors = []
+        for i in range(self.layers[-1].nOut):
+            errors.append(self.loss.calculateError(target[i], actual[i]))
+        return errors
     
     def _update_weights(self, learningRate):#use the updateWeights member of logistic_layer.py
         """
