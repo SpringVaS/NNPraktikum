@@ -13,6 +13,10 @@ from sklearn.metrics import accuracy_score
 
 import sys
 
+from util.loss_functions import BinaryCrossEntropyError, SumSquaredError, MeanSquaredError, DifferentError, \
+    AbsoluteError
+
+
 class MultilayerPerceptron(Classifier):
     """
     A multilayer perceptron used for classification
@@ -163,7 +167,7 @@ class MultilayerPerceptron(Classifier):
 
         #see logistic_regression.py as example
         outp = self._feed_forward(test_instance)
-        return mp.argmax(outp)
+        return np.argmax(outp)
         
 
     def evaluate(self, test=None):
