@@ -1,6 +1,7 @@
 #TODO: add hidden layers to set up network (where? in init?)
-#TODO: implement feed_forward (PS: function_name is inconsistent, exchange?), see logistic_layer.py
-#TODO: implement members for training; it should match Michis new Run.py
+
+#TODO: implement members for training; it should match Michi's new Run.py
+#TODO: evaluation runs for finding the best values/methods (when it compiles... :D)
 
 import numpy as np
 
@@ -46,7 +47,7 @@ class MultilayerPerceptron(Classifier):
         self.epochs = epochs
         self.outputTask = outputTask  # Either classification or regression
         self.outputActivation = outputActivation
-        self.cost = cost
+        self.cost = cost#TODO:what is this ment for? I think it can be dismissed
 
         self.trainingSet = train
         self.validationSet = valid
@@ -76,14 +77,18 @@ class MultilayerPerceptron(Classifier):
         self.layers = []
 
         # Input layer
-        inputActivation = "sigmoid"
+        inputActivation = "sigmoid"#to be evaluated...
         self.layers.append(LogisticLayer(train.input.shape[1], 128, 
                            None, inputActivation, False))
+        #add Hidden layer
+        self.hiddenLayers = 10 #num to be evaluated...
+        self.layers.append(LogisticLayer(128, self.hiddenLayers, None,
+                           "sigmoid", False))
 
-        # Output layer
+        # Output layer-> must match
         outputActivation = "softmax"
-        self.layers.append(LogisticLayer(128, 10, 
-                           None, outputActivation, True))
+        self.layers.append(LogisticLayer(self.hiddenLayers, 10, 
+                           None, outputActivation, True))#default value was 128
 
         self.inputWeights = inputWeights
 
@@ -134,12 +139,12 @@ class MultilayerPerceptron(Classifier):
         """
         pass
     
-    def _update_weights(self, learningRate):#use the updateWeights member of logistic_layers.py
+    def _update_weights(self, learningRate):#use the updateWeights member of logistic_layer.py
         """
         Update the weights of the layers by propagating back the error
         """
         for layer in self.layers:
-            layer.updateweights(learningRate)
+            layer.updateWeights(learningRate)
         
     def train(self, verbose=True):#TODO
         """Train the Multi-layer Perceptrons
