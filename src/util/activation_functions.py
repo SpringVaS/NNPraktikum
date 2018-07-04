@@ -8,6 +8,7 @@ from numpy import exp
 from numpy import divide
 from numpy import ones
 from numpy import asarray
+from numpy import sum
 
 
 class Activation:
@@ -22,25 +23,29 @@ class Activation:
     @staticmethod
     def sigmoid(netOutput):
         # use e^x from numpy to avoid overflow
-        return 1/(1+exp(-1.0*netOutput))
+        return 1 / (1 + exp(-1.0 * netOutput))
 
     @staticmethod
     def sigmoidPrime(netOutput):
         # Here you have to code the derivative of sigmoid function
         # netOutput.*(1-netOutput)
-        return netOutput * (1.0 - netOutput)
+        # return netOutput * (1.0 - netOutput)
+        exn = exp(-1.0 * netOutput);
+        return divide(exn, ((exn + 1) * (exn + 1)));
 
     @staticmethod
     def tanh(netOutput):
         # return 2*Activation.sigmoid(2*netOutput)-1
-        ex = exp(1.0*netOutput)
-        exn = exp(-1.0*netOutput)
-        return divide(ex-exn, ex+exn)  # element-wise division
+        ex = exp(1.0 * netOutput)
+        exn = exp(-1.0 * netOutput)
+        return divide(ex - exn, ex + exn)  # element-wise division
 
     @staticmethod
     def tanhPrime(netOutput):
         # Here you have to code the derivative of tanh function
-        return (1-Activation.tanh(netOutput)**2)
+        ex = exp(1.0 * netOutput)
+        exn = exp(-1.0 * netOutput)
+        return 4 * 1 / ((ex + exn) ** 2)
 
     @staticmethod
     def rectified(netOutput):
@@ -49,8 +54,8 @@ class Activation:
     @staticmethod
     def rectifiedPrime(netOutput):
         # reluPrime=1 if netOutput > 0 otherwise 0
-        #print(type(netOutput))
-        return netOutput>0
+        # print(type(netOutput))
+        return netOutput > 0
 
     @staticmethod
     def identity(netOutput):
@@ -63,14 +68,14 @@ class Activation:
 
     @staticmethod
     def softmax(netOutput):
-        # Here you have to code the softmax function
-        pass
-        
+        ex = exp(netOutput)
+        return ex / sum(ex)
+
     @staticmethod
     def softmaxPrime(netOutput):
-        # Here you have to code the softmax function
-        pass
-        
+        softmax_netOutput = Activation.softmax(netOutput)
+        return softmax_netOutput * (1 - softmax_netOutput)
+
     @staticmethod
     def getActivation(str):
         """
