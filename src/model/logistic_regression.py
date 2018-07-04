@@ -6,7 +6,7 @@ import logging
 import numpy as np
 from sklearn.metrics import accuracy_score
 
-# from util.activation_functions import Activation
+from util.activation_functions import Activation
 from model.classifier import Classifier
 from model.logistic_layer import LogisticLayer
 
@@ -107,6 +107,7 @@ class LogisticRegression(Classifier):
                 print("Accuracy on validation: {0:.2f}%"
                       .format(accuracy * 100))
                 print("-----------------------------")
+#TODO: overtraining check? maybe add more ratings; or in Run.py
 
     def _train_one_epoch(self):
         """

@@ -56,7 +56,7 @@ class LogisticLayer():
         self.deltas = np.zeros((nOut, 1))
 
         # You can have better initialization here
-        if weights is None:
+        if weights is None:#TODO: to be evaluated...
             rns = np.random.RandomState(int(time.time()))
             self.weights = rns.uniform(size=(nIn + 1, nOut))-0.5
         else:
@@ -71,6 +71,8 @@ class LogisticLayer():
 
     def forward(self, inp):
         """
+        #to be edited for mlp.py
+
         Compute forward step over the input using its weights
 
         Parameters
@@ -88,7 +90,7 @@ class LogisticLayer():
         self.inp = inp
         outp = self._fire(inp)
         self.outp = outp
-
+        
         return outp
 
     def computeDerivative(self, next_derivatives, next_weights):
@@ -126,7 +128,7 @@ class LogisticLayer():
         # dado: derivative of activation function w.r.t the output
         dado = self.activationDerivative(self.outp)
         self.deltas = (dado * np.dot(next_derivatives, next_weights))
-
+#TODO: check for improvement; which is better?
         # Or you can explicitly calculate the derivatives for two cases
         # Page 40 Back-propagation slides
         # if self.isClassifierLayer:

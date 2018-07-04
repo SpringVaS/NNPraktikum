@@ -1,3 +1,6 @@
+#TODO: add hidden layers to set up network
+#TODO: implement feed_forward (PS: function_name is inconsistent, exchange?), see logistic_layer.py
+#TODO: implement members for training; it should match Michis new Run.py
 
 import numpy as np
 

@@ -78,7 +78,7 @@ class Perceptron(Classifier):
                     error = loss.calculateError(label, output)
                     self.updateWeights(input, error)
                     totalError += error
-
+#TODO: add a check, wether the accuracy is constant at 90+ to save computing time and break earlier///////HIER??????????????????ß
             iteration += 1
             
             if verbose:
