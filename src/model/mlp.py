@@ -1,4 +1,4 @@
-#TODO: add hidden layers to set up network
+#TODO: add hidden layers to set up network (where? in init?)
 #TODO: implement feed_forward (PS: function_name is inconsistent, exchange?), see logistic_layer.py
 #TODO: implement members for training; it should match Michis new Run.py
 
@@ -116,8 +116,14 @@ class MultilayerPerceptron(Classifier):
         # Here you have to propagate forward through the layers
         # And remember the activation values of each layer
         """
-        
-    def _compute_error(self, target):
+        #input values as ndarray per layer; loop over layers; insert the "1"s like above
+        inputLayer = inp 
+        for layer in self.layers:
+            outputLayer = layer.forward(inputLayer)
+            inputLayer = np.insert(outputLayer,0,1, axis = 0)#not sure if axis needed (?)
+        return outputLayer
+
+    def _compute_error(self, target):#TODO
         """
         Compute the total error of the network (error terms from the output layer)
 
@@ -128,13 +134,14 @@ class MultilayerPerceptron(Classifier):
         """
         pass
     
-    def _update_weights(self, learningRate):
+    def _update_weights(self, learningRate):#use the updateWeights member of logistic_layers.py
         """
         Update the weights of the layers by propagating back the error
         """
-        pass
+        for layer in self.layers:
+            layer.updateweights(learningRate)
         
-    def train(self, verbose=True):
+    def train(self, verbose=True):#TODO
         """Train the Multi-layer Perceptrons
 
         Parameters
@@ -149,7 +156,10 @@ class MultilayerPerceptron(Classifier):
     def classify(self, test_instance):
         # Classify an instance given the model of the classifier
         # You need to implement something here
-        pass
+
+        #see logistic_regression.py as example
+        outp = self._feed_forward(test_instance)
+        return mp.argmax(outp)
         
 
     def evaluate(self, test=None):
