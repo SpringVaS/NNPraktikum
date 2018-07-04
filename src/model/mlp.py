@@ -1,7 +1,5 @@
 #TODO: add hidden layers to set up network (where? in init?)
 
-#TODO: implement members for training; it should match Michi's new Run.py
-#TODO: evaluation runs for finding the best values/methods (when it compiles... :D)
 
 import numpy as np
 

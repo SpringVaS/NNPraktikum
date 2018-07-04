@@ -35,3 +35,6 @@ class Evaluator:
     def printAccuracy(self, testSet, pred):
         print("Accuracy of the recognizer: %.2f%%" %
               (accuracy_score(testSet.label, pred)*100))
+
+    def getAccuracy(self, testSet, pred):
+        return accuracy_score(testSet.label, pred)*100

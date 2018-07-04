@@ -12,9 +12,11 @@ from model.mlp import MultilayerPerceptron
 
 
 def main():
-    for learningRateMillis in xrange(1, 30, 1):
+    results = []
+
+    for learningRateMillis in xrange(1, 50, 5):
         learningRate = learningRateMillis * 0.001
-        for epochs in xrange(1, 60, 1):
+        for epochs in xrange(1, 5, 1):
 
             data = MNISTSeven("../data/mnist_seven.csv", 3000, 1000, 1000,
                               oneHot=True)
@@ -33,6 +35,13 @@ def main():
             print("\nResult of the Perceptron recognizer with learningRate {} and {} epochs:").format(learningRate, epochs)
             #evaluator.printComparison(data.testSet, perceptronPred)
             evaluator.printAccuracy(data.testSet, perceptronPred)
+
+            results.append((learningRate, epochs, evaluator.getAccuracy(data.testSet, perceptronPred)))
+
+    sortedResults = sorted(results, key = lambda x: x[2], reverse=True)
+
+    for (learningRate, epochs, accuracy) in sortedResults:
+        print("Learning Rate: {} Epochs: {} Accuracy: {}").format(learningRate, epochs, accuracy)
 
     
 
