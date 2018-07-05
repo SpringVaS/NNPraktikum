@@ -31,9 +31,11 @@ def main():
                                         learningRate=0.005,
                                         epochs=30)
 
-    myMultilayerPerceptronClassifier = MultilayerPerceptron(data.trainingSet,
-                                                            data.validationSet,
-                                                            data.testSet,
+    myMultilayerPerceptronData = MNISTSeven("../data/mnist_seven.csv", 3000, 1000, 1000,
+                                                    oneHot=True)
+    myMultilayerPerceptronClassifier = MultilayerPerceptron(myMultilayerPerceptronData.trainingSet,
+                                                            myMultilayerPerceptronData.validationSet,
+                                                            myMultilayerPerceptronData.testSet,
                                                             learningRate=0.005,
                                                             epochs=30)
                                         
