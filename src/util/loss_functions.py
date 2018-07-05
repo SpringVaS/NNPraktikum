@@ -8,6 +8,7 @@ Loss functions.
 import numpy as np
 
 from activation_functions import Activation
+from sklearn.metrics import log_loss
 from abc import ABCMeta, abstractmethod, abstractproperty
 
 
@@ -129,16 +130,11 @@ class CrossEntropyError(Error):
         self.errorString = 'crossentropy'
 
     def calculateError(self, target, output):
-        m = target.shape[0]
-        p = Activation.softmax(output)
-        log_likelihood = -np.log(p[range(m), target])
-        loss = np.sum(log_likelihood) / m
-        return loss
+        return -np.sum(target * np.log(output) + (1 - np.array(target)) * np.log(1 - np.array(output)))
 
     def calculateDerivative(self, target, output):
-        m = target.shape[0]
-        grad = Activation.softmax(output)
-        grad[range(m), target] -= 1
-        grad = grad / m
-        return grad
+        # BCEPrime = -target/output + (1-target)/(1-output)
+        return -target / output + (1 - np.array(target)) / (1 - np.array(output))
+        
+
 
