@@ -23,15 +23,15 @@ class Activation:
     @staticmethod
     def sigmoid(netOutput):
         # use e^x from numpy to avoid overflow
-        return 1 / (1 + exp(-1.0 * netOutput))
+        return 1 / (1 + exp(-1.0 * netOutput))#overflow
 
     @staticmethod
     def sigmoidPrime(netOutput):
         # Here you have to code the derivative of sigmoid function
         # netOutput.*(1-netOutput)
-        # return netOutput * (1.0 - netOutput)
-        exn = exp(-1.0 * netOutput);
-        return divide(exn, ((exn + 1) * (exn + 1)));
+        return netOutput * (1.0 - netOutput)
+        #exn = exp(-1.0 * netOutput);
+        #return divide(exn, ((exn + 1) * (exn + 1)));
 
     @staticmethod
     def tanh(netOutput):
@@ -42,7 +42,7 @@ class Activation:
 
     @staticmethod
     def tanhPrime(netOutput):
-        # Here you have to code the derivative of tanh function
+        #Here you have to code the derivative of tanh function
         ex = exp(1.0 * netOutput)
         exn = exp(-1.0 * netOutput)
         return 4 * 1 / ((ex + exn) ** 2)

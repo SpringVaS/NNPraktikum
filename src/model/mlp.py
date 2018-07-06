@@ -1,5 +1,3 @@
-#TODO: add hidden layers to set up network (where? in init?)
-
 
 import numpy as np
 
@@ -22,7 +20,7 @@ class MultilayerPerceptron(Classifier):
 
     def __init__(self, train, valid, test, layers=None, inputWeights=None,
                  outputTask='classification', outputActivation='softmax',
-                 loss='cross', learningRate=0.01, epochs=50):
+                 loss='bce', learningRate=0.01, epochs=30):#evaluated: bce better 
 
         """
         A MNIST recognizer based on multi-layer perceptron algorithm
@@ -84,7 +82,7 @@ class MultilayerPerceptron(Classifier):
         self.layers.append(LogisticLayer(train.input.shape[1], 128, 
                            None, inputActivation, False))
         #add Hidden layer
-        self.hiddenLayers = 10 #num to be evaluated...
+        self.hiddenLayers = 20 #num to be evaluated...
         self.layers.append(LogisticLayer(128, self.hiddenLayers, None,
                            "sigmoid", False))
 
@@ -128,10 +126,10 @@ class MultilayerPerceptron(Classifier):
         inputLayer = inp 
         for layer in self.layers:
             outputLayer = layer.forward(inputLayer)
-            inputLayer = np.insert(outputLayer,0,1, axis = 0)#not sure if axis needed (?)
+            inputLayer = np.insert(outputLayer,0,1)#maybe axis needed for dimension?
         return outputLayer
 
-    def _compute_error(self, target, actual):#TODO
+    def _compute_error(self, target, actual):
         """
         Compute the total error of the network (error terms from the output layer)
 
@@ -144,15 +142,15 @@ class MultilayerPerceptron(Classifier):
         for i in range(self.layers[-1].nOut):
             errors.append(self.loss.calculateError(target[i], actual[i]))
         return errors
-    
+ 
     def _update_weights(self, learningRate):#use the updateWeights member of logistic_layer.py
         """
         Update the weights of the layers by propagating back the error
         """
         for layer in self.layers:
             layer.updateWeights(learningRate)
-        
-    def train(self, verbose=True):#TODO
+
+    def train(self, verbose=True):
         """Train the Multi-layer Perceptrons
 
         Parameters
@@ -180,6 +178,13 @@ class MultilayerPerceptron(Classifier):
                     newWeights = np.transpose(layer.weights[1:])
 
                 self._update_weights(self.learningRate)
+#DEBUG output for epochs and accuracy -> working! uncommend for checking
+#
+#                print ("Epoch: {0}/{1}..".format(epoch + 1, self.epochs))
+#                acc = accuracy_score(self.validationSet.label, list(map(self.classify, self.validationSet)))
+#                self.performances.append(acc)
+#                print("Accuracy on validation: {0:.2f}%".format(acc * 100)) 
+
 
     def classify(self, test_instance):
         # Classify an instance given the model of the classifier

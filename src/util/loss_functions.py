@@ -130,11 +130,12 @@ class CrossEntropyError(Error):
         self.errorString = 'crossentropy'
 
     def calculateError(self, target, output):
-        return -np.sum(target * np.log(output) + (1 - np.array(target)) * np.log(1 - np.array(output)))
+        return -np.sum(target * np.log(output) + (1 - np.array(target)) * np.log(1 - np.array(output)))#first version; eventually an dimension error? 
 
     def calculateDerivative(self, target, output):
         # BCEPrime = -target/output + (1-target)/(1-output)
-        return -target / output + (1 - np.array(target)) / (1 - np.array(output))
+        #return -target / output + (1 - np.array(target)) / (1 - np.array(output))
+        return -target / output + (1-target) / (1 - output)#higher performance without numpy; don't know why ?!
         
 
 
