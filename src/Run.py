@@ -37,8 +37,8 @@ def main():
                                                             myMultilayerPerceptronData.validationSet,
                                                             myMultilayerPerceptronData.testSet,
                                                             loss = 'bce',#evaluated: bce better than ce
-                                                            learningRate=0.005,#good result
-                                                            epochs=3)#3 epochs enough for 98% accuracy!
+                                                            learningRate=0.002,#good result
+                                                            epochs=30)
 
 
     # Report the result #
@@ -70,9 +70,9 @@ def main():
     evaluator.printAccuracy(data.testSet, mlpPred)
     
     # Draw -- DIMENSION ISSUE
-#    plot = PerformancePlot("MultilayerPerceptron validation")
-#    plot.draw_performance_epoch(myMultilayerPerceptronClassifier.performances,
-#                                myMultilayerPerceptronClassifier.epochs)
+    plot = PerformancePlot("MultilayerPerceptron validation")
+    plot.draw_performance_epoch(myMultilayerPerceptronClassifier.performances,
+                                myMultilayerPerceptronClassifier.epochs)
     
     
 if __name__ == '__main__':

@@ -158,7 +158,7 @@ class MultilayerPerceptron(Classifier):
         verbose : boolean
             Print logging messages with validation accuracy if verbose is True.
         """
-        for epoch in range(self.epochs):
+        for i in range(self.epochs)  :
             for input, label in zip(self.trainingSet.input, self.trainingSet.label):
 
                 # get the optimal output vector:
@@ -180,10 +180,10 @@ class MultilayerPerceptron(Classifier):
                 self._update_weights(self.learningRate)
 #DEBUG output for epochs and accuracy -> working! uncommend for checking
 #
-#                print ("Epoch: {0}/{1}..".format(epoch + 1, self.epochs))
-#                acc = accuracy_score(self.validationSet.label, list(map(self.classify, self.validationSet)))
-#                self.performances.append(acc)
-#                print("Accuracy on validation: {0:.2f}%".format(acc * 100)) 
+            print ("Epoch: {0}/{1}..".format(i + 1, self.epochs))
+            acc = accuracy_score(self.validationSet.label, self.evaluate(self.validationSet.input))
+            self.performances.append(acc)
+            print("Accuracy on validation: {0:.2f}%".format(acc * 100)) 
 
 
     def classify(self, test_instance):
